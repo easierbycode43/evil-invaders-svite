@@ -8,6 +8,7 @@ module.exports = defineConfig(({ mode }) => {
    * @type {import('vite').UserConfig}
    */
   return {
+    base: isProduction ? '/evil-invaders-svite/' : '/',
     plugins: [
       svelte({
         hot: true,
