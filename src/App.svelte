@@ -18,6 +18,10 @@
       frameWidth: 79,
       frameHeight: 66,
     })
+    scene.load.spritesheet('textures/enemy/particles', 'assets/invader-gold-particles.png', {
+      frameWidth: 3,
+      frameHeight: 3
+    })
     scene.load.spritesheet('textures/explosion', 'assets/explode.png', {
       frameWidth: 128,
       frameHeight: 128,
