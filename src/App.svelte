@@ -39,15 +39,18 @@
     })
     scene.anims.create({
       key: 'anims/explosion',
-      frames: scene.anims.generateFrameNumbers('textures/explosion', {
-        start: 0,
-        end: 16,
-      }),
+      frames: scene.anims.generateFrameNumbers('textures/explosion'),
       frameRate: 24,
     })
     scene.anims.create({
       key: 'anims/bullet/default',
       frames: scene.anims.generateFrameNumbers('textures/player/bullet'),
+      frameRate: 20,
+      repeat: -1
+    })
+    scene.anims.create({
+      key: 'anims/enemyBullet/default',
+      frames: [{key: 'textures/enemy/bullet', frame: 0}],
       frameRate: 20,
       repeat: -1
     })
@@ -60,6 +63,7 @@
   height={600}
   physics={{ default: 'arcade' }}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
+  render={{ pixelArt: true }}
 >
   <Scene key="main" {preload} {create} let:progress>
     <slot slot="loading">
