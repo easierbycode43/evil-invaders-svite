@@ -22,6 +22,10 @@
       frameWidth: 128,
       frameHeight: 128,
     })
+    scene.load.spritesheet('textures/ufo', 'assets/ufo.png', {
+      frameWidth: 32,
+      frameHeight: 30
+    })
     scene.load.image('textures/player', 'assets/ship.png')
     scene.load.spritesheet('textures/player/bullet', 'assets/sperm.png', {
       frameWidth: 6,
@@ -53,6 +57,12 @@
       frames: [{key: 'textures/enemy/bullet', frame: 0}],
       frameRate: 20,
       repeat: -1
+    })
+    scene.anims.create({
+      key: 'anims/ufo/fly',
+      frames: scene.anims.generateFrameNumbers('textures/ufo'),
+      frameRate: 4,
+      repeat: -1,
     })
   }
 </script>

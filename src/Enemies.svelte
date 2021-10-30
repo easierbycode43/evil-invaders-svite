@@ -10,7 +10,7 @@
   const scene = getScene()
   const { spawn } = getSpawner()
 
-  let enemies: Array<{ x: number; y: number; key: number }> = []
+  let enemies: Array<{ x: number; y: number; key: number, animation: any }> = []
   let enemyVelocityX = 40
   let enemyY = 0
 
@@ -87,6 +87,7 @@
         // we add Date.now() so that all keys are changed between game resets
         // (if you're curious, remove Date.now() and see what happens when you reset the game)
         key: index + Date.now(),
+        animation: (index % 2 == 0) ? 'anims/enemy/fly' : 'anims/ufo/fly'
       }
     })
   }
@@ -99,6 +100,7 @@
 
 {#each enemies as enemy (enemy.key)}
   <Enemy
+    animation={enemy.animation}
     x={100 + enemy.x}
     y={70 + enemy.y + enemyY}
     velocityX={$gameStatus === 'playing' ? enemyVelocityX : 0}
