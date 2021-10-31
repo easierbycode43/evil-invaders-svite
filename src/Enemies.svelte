@@ -10,8 +10,6 @@
   const scene = getScene()
   const { spawn } = getSpawner()
 
-  // let emitter: Phaser.GameObjects.Particles.ParticleEmitterManager
-  let emitter: any
   let enemies: Array<{ x: number; y: number; key: number, animation: any }> = []
   let enemyVelocityX = 40
   let enemyY = 0
@@ -79,37 +77,6 @@
     moveTimer.reset(timerConfig)
     enemyY = 0
 
-    // enemy explosion particle emitter
-    let particles = scene.add.particles(
-      'textures/enemy/particles'
-    )
-
-    emitter = particles.createEmitter({
-      frequency: -1,
-      blendMode   : Phaser.BlendModes.ADD,
-      gravityY: 600,
-      alpha: {
-        start: 1,
-        end: 0,
-        ease: "Cubic.easeIn"
-      },
-      lifespan: 500,
-      angle: {
-        min: -180,
-        max: 180
-      },
-      speed: {
-        min: 0,
-        max: 2400
-      },
-      scale: {
-        min: 0.2,
-        max: 0.3
-      },
-      frame: [...Array(3).keys()]
-    })
-
-
     enemies = Array.from({ length: 40 }).map((_, index) => {
       const columns = 10
       const column = index % columns
@@ -139,10 +106,6 @@
     y={70 + enemy.y + enemyY}
     velocityX={$gameStatus === 'playing' ? enemyVelocityX : 0}
     onDie={() => {
-
-      // emitter explode if enemy.animation == 'anims/ufo/fly'
-      (enemy.animation == 'anims/enemy/fly') && emitter.explode(100, enemy.x, enemy.y)
-
       enemies = enemies.filter((e) => e !== enemy)
       coins.update((prev) => prev + Phaser.Math.RND.integerInRange(0, 3))
       score.update((prev) => prev + 100)

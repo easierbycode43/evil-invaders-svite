@@ -30,6 +30,10 @@
       frameWidth: 32,
       frameHeight: 30
     })
+    scene.load.spritesheet('textures/ufo/explosion', 'assets/ufo-explosion.png', {
+        frameWidth: 32,
+        frameHeight: 30
+    })
     scene.load.image('textures/player', 'assets/ship.png')
     scene.load.spritesheet('textures/player/bullet', 'assets/sperm.png', {
       frameWidth: 6,
@@ -46,7 +50,7 @@
       repeat: -1,
     })
     scene.anims.create({
-      key: 'anims/explosion',
+      key: 'anims/enemy/explosion',
       frames: scene.anims.generateFrameNumbers('textures/explosion'),
       frameRate: 24,
     })
@@ -61,6 +65,11 @@
       frames: [{key: 'textures/enemy/bullet', frame: 0}],
       frameRate: 20,
       repeat: -1
+    })
+    scene.anims.create({
+      key: 'anims/ufo/explosion',
+      frames: scene.anims.generateFrameNumbers('textures/ufo/explosion'),
+      frameRate: 30
     })
     scene.anims.create({
       key: 'anims/ufo/fly',

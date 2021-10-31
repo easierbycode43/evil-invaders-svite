@@ -20,7 +20,9 @@
 
   let instance: Phaser.Physics.Arcade.Sprite
   let destroyed = false
+  let destroyedEnemyType: string
   let destroyedPosition: { x: number; y: number }
+  let explosionAnimation: string
 
   const scene = getScene()
 
@@ -38,6 +40,7 @@
 
 {#if destroyed}
   <Explosion
+    animation={explosionAnimation}
     x={destroyedPosition.x}
     y={destroyedPosition.y - 32}
     on:animationcomplete={() => onDestroy()}
@@ -47,8 +50,10 @@
     <ArcadeCollider
       with={target}
       overlapOnly
-      on:collide={() => {
+      on:collide={(e) => {
         destroyed = true
+        destroyedEnemyType = e.detail.other.texture.key
+        explosionAnimation = destroyedEnemyType.replace( 'textures', 'anims' ) + '/explosion'
         destroyedPosition = { x: instance.x, y: instance.y }
       }}
     />
