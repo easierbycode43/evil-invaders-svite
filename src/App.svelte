@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
   import Phaser from 'phaser'
   import { Game, Scene, Text, Spawner } from 'svelte-phaser'
   import LoadingBar from './LoadingBar.svelte'
@@ -12,8 +12,13 @@
 
   $: window.game = game
 
-  function preload(scene) {
+  function preload(scene: Phaser.Scene) {
+    scene.load.audio('audio/coin', 'assets/coin.mp3')
     scene.load.image('textures/starfield', 'assets/star-bg-0.png')
+    scene.load.spritesheet('textures/coin', 'assets/coin.png', {
+      frameWidth: 54,
+      frameHeight: 54,
+    })
     scene.load.spritesheet('textures/enemy', 'assets/invader-gold.png', {
       frameWidth: 79,
       frameHeight: 66,
@@ -42,7 +47,7 @@
     scene.load.image('textures/enemy/bullet', 'assets/enemy-bullet.png')
   }
 
-  function create(scene) {
+  function create(scene: Phaser.Scene) {
     scene.anims.create({
       key: 'anims/enemy/fly',
       frames: scene.anims.generateFrameNumbers('textures/enemy'),
@@ -61,10 +66,21 @@
       repeat: -1
     })
     scene.anims.create({
+      key: 'anims/coin/default',
+      frames: scene.anims.generateFrameNumbers('textures/coin'),
+      frameRate: 20,
+      repeat: -1
+    })
+    scene.anims.create({
       key: 'anims/enemyBullet/default',
       frames: [{key: 'textures/enemy/bullet', frame: 0}],
       frameRate: 20,
       repeat: -1
+    })
+    scene.anims.create({
+      key: 'anims/player/explosion',
+      frames: scene.anims.generateFrameNumbers('textures/explosion'),
+      frameRate: 24,
     })
     scene.anims.create({
       key: 'anims/ufo/explosion',
@@ -77,6 +93,8 @@
       frameRate: 4,
       repeat: -1,
     })
+
+    scene.coinSound = scene.sound.add( 'audio/coin' )
   }
 </script>
 

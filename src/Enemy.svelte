@@ -1,6 +1,7 @@
 <script lang="ts">
   import Phaser from 'phaser';
   import { getScene, Sprite, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
+import Coin from './Coin.svelte';
 
   const scene = getScene()
 
@@ -11,6 +12,8 @@
   export let onDie: () => any
 
   let instance: Phaser.Physics.Arcade.Sprite
+
+  let destroyed = false
 
   let emitter: any
 
@@ -45,14 +48,22 @@
   })
 </script>
 
+{#if destroyed}
+  <Coin x={instance.x} y={instance.y} onCoinCollected={() => {
+    onDie()
+  }} />
+{:else}
 <Sprite bind:instance name="enemy" {x} {y} animation={animation}>
   <ArcadePhysics {velocityX} collideWorldBounds />
   <ArcadeCollider with="playerBullet" overlapOnly on:collide={
     () => {
+      destroyed = true;
+
       // emitter explode if enemy.animation == 'anims/ufo/fly'
       (animation == 'anims/enemy/fly') && emitter.explode(100, instance.x, instance.y)
 
-      onDie()
+      // onDie()
     }
   } />
 </Sprite>
+{/if}

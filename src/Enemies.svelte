@@ -107,7 +107,6 @@
     velocityX={$gameStatus === 'playing' ? enemyVelocityX : 0}
     onDie={() => {
       enemies = enemies.filter((e) => e !== enemy)
-      coins.update((prev) => prev + Phaser.Math.RND.integerInRange(0, 3))
       score.update((prev) => prev + 100)
     }}
   />
