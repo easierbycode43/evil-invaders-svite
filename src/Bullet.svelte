@@ -46,7 +46,16 @@
     on:animationcomplete={() => onDestroy()}
   />
 {:else}
-  <Sprite animation={name === 'enemyBullet' ? 'anims/enemyBullet/default' : 'anims/bullet/default'} bind:instance {depth} {name} {texture} {x} {y}>
+  <Sprite  
+    animation={name === 'enemyBullet' ? 'anims/enemyBullet/default' : name === 'flirtyGirlBullet' ? 'anims/kissBullet/default' : 'anims/bullet/default'} 
+    bind:instance 
+    {depth} 
+    {name} 
+    {texture} 
+    {x} 
+    {y}
+    scale={name === 'flirtyGirlBullet' ? 0.5 : 1}
+  >
     <ArcadeCollider
       with={target}
       overlapOnly

@@ -39,6 +39,10 @@
       frameWidth: 31,
       frameHeight: 40,
     })
+    scene.load.spritesheet('textures/kiss-bullet', 'assets/kiss-bullet.png', {
+      frameWidth: 25,
+      frameHeight: 21,
+    })
     scene.load.spritesheet('textures/ufo', 'assets/ufo.png', {
       frameWidth: 32,
       frameHeight: 30
@@ -106,6 +110,12 @@
         {key: 'textures/flirty-girl', frame: 1}
       ],
       frameRate: 6
+    })
+    scene.anims.create({
+      key: 'anims/kissBullet/default',
+      frames: scene.anims.generateFrameNumbers('textures/kiss-bullet'),
+      frameRate: 6,
+      repeat: -1
     })
     scene.anims.create({
       key: 'anims/player/explosion',

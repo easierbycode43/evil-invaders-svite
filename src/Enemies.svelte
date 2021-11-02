@@ -53,8 +53,8 @@
           if ( enemy.texture.key == 'textures/flirty-girl' ) {
             enemy.once('animationcomplete-anims/flirtyGirl/attack', () => {
               spawn(Bullet, {
-                name: 'enemyBullet',
-                texture: 'textures/enemy/bullet',
+                name: 'flirtyGirlBullet',
+                texture: 'textures/kiss-bullet',
                 target: 'player',
                 x: enemy.x,
                 y: enemy.y,
@@ -115,9 +115,9 @@
 
   // player wins
   $: if (enemies.length === 0) {
-    // enemiesDefeated.set(true)
+    enemiesDefeated.set(true)
 
-    // launch boss
+    // launch boss?
     //  ... 
   }
 </script>

@@ -12,7 +12,10 @@
 <Text x={16} y={16} text={`Score: ${$score}`} />
 <Text x={16} y={32} text={`Coins: ${$coins}`} />
 <Text x={700} y={16} text={`Lives: ${$lives}`} />
+
+{#if $gameStatus === 'playing' && $coins === 0}
 <Text x={180} y={575} text="Move with arrow keys, shoot with spacebar" />
+{/if}
 
 {#if $gameStatus !== 'playing'}
   <Text
