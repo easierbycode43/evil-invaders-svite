@@ -127,7 +127,12 @@
         e.to(logo, .9, {
           y: 75,
           ease: Quint.easeIn
-        }, "-=0.8")
+        }, "-=0.8"),
+        e.to(logo, .9, {
+          scaleX: 1,
+          scaleY: 1,
+          ease: Quint.easeIn
+        }, "-=0.9")
       }
     })
   }
@@ -173,11 +178,12 @@
 
     <Sprite 
       bind:instance={logo}
+      scale={2}
       texture='textures/logo' 
       originX={0} 
       originY={0} 
       x={(800 - 537) / 2}
-      y={-62}
+      y={-124}
     />
   </Scene>
 </Game>
