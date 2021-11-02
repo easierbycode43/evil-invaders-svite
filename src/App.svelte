@@ -39,6 +39,10 @@
       frameWidth: 31,
       frameHeight: 40,
     })
+    scene.load.spritesheet('textures/flirty-girl/particles', 'assets/flirty-girl-particles.png', {
+      frameWidth: 15,
+      frameHeight: 29,
+    })
     scene.load.spritesheet('textures/kiss-bullet', 'assets/kiss-bullet.png', {
       frameWidth: 25,
       frameHeight: 21,
