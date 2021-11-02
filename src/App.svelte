@@ -1,6 +1,6 @@
 <script lang='ts'>
   import Phaser from 'phaser'
-  import { Game, Scene, Sprite, Spawner } from 'svelte-phaser'
+  import { Game, Scene, Sprite, Spawner, Text } from 'svelte-phaser'
   import LoadingBar from './LoadingBar.svelte'
   import Background from './Background.svelte'
   import Player from './Player.svelte'
@@ -103,6 +103,9 @@
 
 
   let logo: Phaser.GameObjects.Sprite
+  let upgradeShipText: Phaser.GameObjects.Text
+
+  $: window.text = upgradeShipText
 
   function createMenu(scene: Phaser.Scene) {
     create(scene)
@@ -136,6 +139,11 @@
         e.to(logo, .9, {
           scaleX: 1,
           scaleY: 1,
+          ease: Quint.easeIn
+        }, "-=0.9")
+        e.to(upgradeShipText, 1.8, {
+          scaleX: 2,
+          scaleY: 2,
           ease: Quint.easeIn
         }, "-=0.9")
       }
@@ -189,6 +197,19 @@
       originY={0} 
       x={(800 - 537) / 2}
       y={-124}
+    />
+
+    <Text 
+      bind:instance={upgradeShipText}
+      align='center'
+      scaleX={-1}
+      scaleY={0}
+      originX={0} 
+      originY={0} 
+      x={(800 - 390) / 2}
+      y={500}
+      fontSize='18px'
+      text='>  UPGRADE SHIP  <'
     />
   </Scene>
 </Game>
