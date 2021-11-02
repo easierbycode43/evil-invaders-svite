@@ -1,6 +1,6 @@
 <script lang='ts'>
   import Phaser from 'phaser'
-  import { Game, Scene, Text, Spawner } from 'svelte-phaser'
+  import { Game, Scene, Sprite, Spawner } from 'svelte-phaser'
   import LoadingBar from './LoadingBar.svelte'
   import Background from './Background.svelte'
   import Player from './Player.svelte'
@@ -10,10 +10,14 @@
 
   let game
 
+  let gameStarted = false
+
   $: window.game = game
 
   function preload(scene: Phaser.Scene) {
     scene.load.audio('audio/coin', 'assets/coin.mp3')
+    scene.load.image('textures/copyright', 'assets/logo-dark.png')
+    scene.load.image('textures/logo', 'assets/RonaGun-logo.png')
     scene.load.image('textures/starfield', 'assets/star-bg-0.png')
     scene.load.spritesheet('textures/coin', 'assets/coin.png', {
       frameWidth: 54,
@@ -96,8 +100,22 @@
 
     scene.coinSound = scene.sound.add( 'audio/coin' )
   }
+
+  function createMenu(scene: Phaser.Scene) {
+    create(scene)
+
+    scene.input.on('pointerdown', () => {
+      gameStarted = true
+    })
+
+    scene.copyright = scene.add.sprite(0, 0, 'textures/copyright').setOrigin(0),
+    scene.copyright.x = (800 - scene.copyright.width) / 2,
+    scene.copyright.y = 600 - scene.copyright.height - 6,
+    scene.copyright.blendMode = Phaser.BlendModes.ADD;
+  }
 </script>
 
+{#if gameStarted}
 <Game
   bind:instance={game}
   width={800}
@@ -110,7 +128,7 @@
     <slot slot="loading">
       <LoadingBar x={400} y={300} {progress} />
     </slot>
-
+    
     <Spawner>
       <Background />
       <Enemies />
@@ -121,7 +139,29 @@
     </Spawner>
   </Scene>
 </Game>
+{:else}
+<Game
+  width={800}
+  height={600}
+  scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
+  render={{ pixelArt: true }}
+>
+  <Scene key="menu" {preload} create={createMenu} let:progress>
+    <slot slot="loading">
+      <LoadingBar x={400} y={300} {progress} />
+    </slot>
 
+    <Background />
+
+    <Sprite 
+      texture='textures/logo' 
+      originX={0} 
+      originY={0} 
+      x={(800 - 537) / 2}
+    />
+  </Scene>
+</Game>
+{/if}
 <style>
   :global(body) {
     margin: 0;
