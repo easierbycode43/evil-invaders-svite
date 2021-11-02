@@ -113,7 +113,7 @@
 
     scene.copyright = scene.add.sprite(0, 0, 'textures/copyright').setOrigin(0),
     scene.copyright.x = (800 - scene.copyright.width) / 2,
-    scene.copyright.y = 600 - scene.copyright.height - 6,
+    scene.copyright.y = 600,
     scene.copyright.blendMode = Phaser.BlendModes.ADD;
 
     var e = new TimelineMax({
@@ -124,6 +124,11 @@
 		scene.time.addEvent({
       delay: 250,
       callback: () => {
+        e.to(scene.copyright, 2, {
+          y: 600 - scene.copyright.height - 6,
+          ease: Quint.easeOut
+        }, "+=0.0"),
+        e.addCallback(function() {}, "-=0.1", null, this),
         e.to(logo, .9, {
           y: 75,
           ease: Quint.easeIn
