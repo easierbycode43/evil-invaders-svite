@@ -1,0 +1,7 @@
+NOW
+===
+- on player death, explode emitter
+
+
+LATER
+=====

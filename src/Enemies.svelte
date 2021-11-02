@@ -95,7 +95,10 @@
 
   // player wins
   $: if (enemies.length === 0) {
-    enemiesDefeated.set(true)
+    // enemiesDefeated.set(true)
+
+    // launch boss
+    //  ... 
   }
 </script>
 
