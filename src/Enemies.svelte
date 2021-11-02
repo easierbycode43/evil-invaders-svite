@@ -50,15 +50,34 @@
 
           const velocity = scene.physics.velocityFromAngle(angle, 180)
 
-          spawn(Bullet, {
-            name: 'enemyBullet',
-            texture: 'textures/enemy/bullet',
-            target: 'player',
-            x: enemy.x,
-            y: enemy.y,
-            velocityX: velocity.x,
-            velocityY: velocity.y,
-          })
+          if ( enemy.texture.key == 'textures/flirty-girl' ) {
+            enemy.once('animationcomplete-anims/flirtyGirl/attack', () => {
+              spawn(Bullet, {
+                name: 'enemyBullet',
+                texture: 'textures/enemy/bullet',
+                target: 'player',
+                x: enemy.x,
+                y: enemy.y,
+                velocityX: velocity.x,
+                velocityY: velocity.y,
+              })
+
+              enemy.play( 'anims/flirtyGirl/default' )
+            })
+
+            enemy.play( 'anims/flirtyGirl/attack' )
+          
+          } else {
+            spawn(Bullet, {
+              name: 'enemyBullet',
+              texture: 'textures/enemy/bullet',
+              target: 'player',
+              x: enemy.x,
+              y: enemy.y,
+              velocityX: velocity.x,
+              velocityY: velocity.y,
+            })
+          }
         }
       }
     },
@@ -88,7 +107,8 @@
         // we add Date.now() so that all keys are changed between game resets
         // (if you're curious, remove Date.now() and see what happens when you reset the game)
         key: index + Date.now(),
-        animation: (index % 2 == 0) ? 'anims/enemy/fly' : 'anims/ufo/fly'
+        // animation: (index % 2 == 0) ? 'anims/enemy/fly' : 'anims/ufo/fly'
+        animation: (index % 2 == 0) ? 'anims/enemy/fly' : 'anims/flirtyGirl/default'
       }
     })
   }

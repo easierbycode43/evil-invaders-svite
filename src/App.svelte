@@ -35,6 +35,10 @@
       frameWidth: 128,
       frameHeight: 128,
     })
+    scene.load.spritesheet('textures/flirty-girl', 'assets/flirty-gold-girl.png', {
+      frameWidth: 31,
+      frameHeight: 40,
+    })
     scene.load.spritesheet('textures/ufo', 'assets/ufo.png', {
       frameWidth: 32,
       frameHeight: 30
@@ -55,7 +59,7 @@
     scene.anims.create({
       key: 'anims/enemy/fly',
       frames: scene.anims.generateFrameNumbers('textures/enemy'),
-      frameRate: 10,
+      frameRate: 6,
       repeat: -1,
     })
     scene.anims.create({
@@ -80,6 +84,28 @@
       frames: [{key: 'textures/enemy/bullet', frame: 0}],
       frameRate: 20,
       repeat: -1
+    })
+    scene.anims.create({
+      key: 'anims/flirtyGirl/default',
+      frames: [
+        {key: 'textures/flirty-girl', frame: 0},
+        {key: 'textures/flirty-girl', frame: 1}
+      ],
+      frameRate: 6,
+      repeat: -1
+    })
+    scene.anims.create({
+      key: 'anims/flirtyGirl/attack',
+      frames: [
+        {key: 'textures/flirty-girl', frame: 1},
+        {key: 'textures/flirty-girl', frame: 2},
+        {key: 'textures/flirty-girl', frame: 3},
+        {key: 'textures/flirty-girl', frame: 4},
+        {key: 'textures/flirty-girl', frame: 3},
+        {key: 'textures/flirty-girl', frame: 4},
+        {key: 'textures/flirty-girl', frame: 1}
+      ],
+      frameRate: 6
     })
     scene.anims.create({
       key: 'anims/player/explosion',
