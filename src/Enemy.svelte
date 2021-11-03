@@ -1,6 +1,6 @@
 <script lang="ts">
   import Phaser from 'phaser';
-  import { getScene, Sprite, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
+  import { getScene, onArcadePhysicsEvent, onGameEvent, Sprite, ArcadePhysics, ArcadeCollider } from 'svelte-phaser'
 import Coin from './Coin.svelte';
 
   const scene = getScene()
@@ -103,18 +103,14 @@ import Coin from './Coin.svelte';
   }} />
 {:else}
 <Sprite bind:instance name="enemy" {x} {y} animation={animation}>
-  <ArcadePhysics {velocityX} collideWorldBounds />
+  <ArcadePhysics width={animation == 'anims/enemy/fly' ? 33 : 26} height={animation == 'anims/enemy/fly' ? 24 : 24} offsetX={animation == 'anims/enemy/fly' ? 23 : 4} offsetY={animation == 'anims/enemy/fly' ? 21 : 15}  {velocityX} bounce={1} collideWorldBounds />
   <ArcadeCollider with="playerBullet" overlapOnly on:collide={
     () => {
       destroyed = true;
 
-      // emitter explode if enemy.animation == 'anims/ufo/fly'
       (animation == 'anims/enemy/fly') && emitter.explode(100, instance.x, instance.y);
 
       (animation == 'anims/flirtyGirl/default' || animation == 'anims/flirtyGirl/attack') && emitterFlirtyGirl.explode(1, instance.x, instance.y) && emitterFlirtyGirl2.explode(1, instance.x, instance.y);
-      // (animation == 'anims/flirtyGirl/default' || animation == 'anims/flirtyGirl/attack') && console.log( '!! FLIRTY EXPLODE !!' );
-
-      // onDie()
     }
   } />
 </Sprite>

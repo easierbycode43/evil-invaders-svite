@@ -1,7 +1,7 @@
 <script lang="ts">
   import Phaser from 'phaser'
   import { onMount } from 'svelte'
-  import { getScene, getSpawner } from 'svelte-phaser'
+  import { ArcadePhysics, getScene, getSpawner } from 'svelte-phaser'
   import { score, gameStatus, enemiesDefeated, coins } from './store'
 
   import Enemy from './Enemy.svelte'
@@ -14,12 +14,35 @@
   let enemyVelocityX = 40
   let enemyY = 0
 
-  // change direction every 3 seconds
+  // descend every 3 seconds
   const timerConfig = {
     callback: () => {
       if ($gameStatus === 'playing') {
-        enemyVelocityX = -enemyVelocityX
-        enemyY += 16
+        enemyY += 16;
+
+        const enemies = scene.children.list.filter(
+          (child) => child.name === 'enemy'
+        )
+
+        if ( enemies.length <= 20 && moveTimer.delay == 3500 ) {
+          let newTimerConfig = {
+            callback: timerConfig.callback,
+            loop: true,
+            delay: 1000
+          }
+
+          moveTimer.reset( newTimerConfig )
+        }
+
+        if ( enemies.length <= 10 && moveTimer.delay == 1000 ) {
+          let newTimerConfig = {
+            callback: timerConfig.callback,
+            loop: true,
+            delay: 500
+          }
+
+          moveTimer.reset( newTimerConfig )
+        }
       }
     },
     loop: true,
@@ -85,6 +108,8 @@
     delay: 2000,
   })
 
+  window.foo = enemyShootTimer
+
   // cleanup timers
   onMount(() => () => {
     moveTimer.destroy()
@@ -132,5 +157,6 @@
       enemies = enemies.filter((e) => e !== enemy)
       score.update((prev) => prev + 100)
     }}
-  />
+  >
+  </Enemy>
 {/each}
