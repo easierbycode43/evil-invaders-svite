@@ -20,8 +20,16 @@ import { coins } from './store';
     })
 </script>
 
-<Sprite bind:instance name='coin' {x} {y} scale={0.5} animation='anims/coin/default'>
-    <ArcadePhysics {velocityY} />
+<Sprite bind:instance name='coin' {x} {y} scale={0.75} animation='anims/coin/default'>
+    <ArcadePhysics 
+        bounce={1}
+        collideWorldBounds
+        velocityX={Math.random() < 0.5 ? 15 : -15} 
+        velocityY={Phaser.Math.Between(-5, -60)} 
+        gravityY={100} 
+        useDamping={true} 
+        circle={{ radius: 28, offsetX: 0, offsetY: 0 }}
+    />
     <ArcadeCollider with='player' overlapOnly on:collide={
         () => {
             onCoinCollected()

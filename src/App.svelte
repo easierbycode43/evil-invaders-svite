@@ -139,6 +139,9 @@
     })
 
     scene.coinSound = scene.sound.add( 'audio/coin' )
+
+    // set collisions on all edges of world except bottom
+    scene.physics.world.setBoundsCollision(true, true, true, false)
   }
 
 
@@ -221,6 +224,7 @@
   height={600}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
   render={{ pixelArt: true }}
+  physics={{ default: 'arcade' }}
 >
   <Scene key="menu" {preload} create={createMenu} let:progress>
     <slot slot="loading">
