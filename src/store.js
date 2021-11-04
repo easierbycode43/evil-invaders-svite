@@ -4,7 +4,7 @@ export const score = writable(0)
 export const lives = writable(3)
 export const coins = writable(0)
 
-export const currentLevel = writable( 1 )
+export const currentLevel = writable( 0 )
 export const enemiesDefeated = writable(false)
 export const sceneRestarting = writable(false)
 

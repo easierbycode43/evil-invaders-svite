@@ -115,8 +115,25 @@ import { clearObjects } from './clearObjects';
     enemyShootTimer.destroy()
   })
 
-  // create enemies on to start or on game reset
+
+  // TODO: load enemies for current level
+  let currentLevelEnemies = [
+    // level 1
+    [ 'anims/enemy/fly', 'anims/flirtyGirl/default' ],
+    
+    // level 2
+    [ 'anims/enemy/fly', 'anims/ufo/fly' ],
+
+    // level 3
+    [ 'anims/ufo/fly', 'anims/ufo/fly' ]
+  ]
+
+
+  // create enemies on game start or reset
   $: if ($gameStatus === 'playing') {
+
+    let enemyAnims = currentLevelEnemies[ $currentLevel ] ? currentLevelEnemies[ $currentLevel ] : currentLevelEnemies[ 0 ];
+
     moveTimer.reset(timerConfig)
     enemyY = 0
 
@@ -131,8 +148,7 @@ import { clearObjects } from './clearObjects';
         // we add Date.now() so that all keys are changed between game resets
         // (if you're curious, remove Date.now() and see what happens when you reset the game)
         key: index + Date.now(),
-        // animation: (index % 2 == 0) ? 'anims/enemy/fly' : 'anims/ufo/fly'
-        animation: (index % 2 == 0) ? 'anims/enemy/fly' : 'anims/flirtyGirl/default'
+        animation: (index % 2 == 0) ? enemyAnims[0] : enemyAnims[1]
       }
     })
   }

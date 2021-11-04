@@ -146,7 +146,7 @@
     if ( scene.scene.settings.data['currentLevel'] ) {
       $currentLevel = scene.scene.settings.data['currentLevel']
 
-      let levelText = scene.add.text( 800 / 2, -100, `Level ${$currentLevel}`).setDepth( 30 )
+      let levelText = scene.add.text( 800 / 2, -100, `Level ${$currentLevel + 1}`).setDepth( 30 )
 
       scene.physics.world.enableBody( levelText )
 
