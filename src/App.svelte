@@ -14,6 +14,8 @@
 
   $: window.game = game
 
+  $: window.ding = $gamepad
+
   function preload(scene: Phaser.Scene) {
     scene.load.audio('audio/coin', 'assets/coin.mp3')
     scene.load.image('textures/copyright', 'assets/logo-dark.png')
@@ -173,7 +175,7 @@
   let upgradeShipText: Phaser.GameObjects.Text
 
   function createMenu(scene: Phaser.Scene) {
-    create(scene)
+    // create(scene)
 
     scene.input.on('pointerdown', () => {
       gameStarted = true

@@ -60,8 +60,12 @@
       with={target}
       overlapOnly
       on:collide={(e) => {
-        destroyed = true
+        
         destroyedEnemyType = e.detail.other.texture.key
+
+        if ( destroyedEnemyType === 'textures/flirty-girl' )  return onDestroy();
+
+        destroyed = true
         explosionAnimation = destroyedEnemyType.replace( 'textures', 'anims' ) + '/explosion'
         destroyedPosition = { x: instance.x, y: instance.y }
       }}

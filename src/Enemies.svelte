@@ -54,6 +54,9 @@ import { clearObjects } from './clearObjects';
   // shoot bullet at player every 2 seconds from random enemy
   const enemyShootTimer = scene.time.addEvent({
     callback: () => {
+
+      if ( $sceneRestarting )  return;
+
       if ($gameStatus === 'playing') {
         const player = scene.children.getByName(
           'player'
@@ -75,7 +78,7 @@ import { clearObjects } from './clearObjects';
           const velocity = scene.physics.velocityFromAngle(angle, 180)
 
           if ( enemy.texture.key == 'textures/flirty-girl' ) {
-            enemy.once('animationcomplete-anims/flirtyGirl/attack', () => {
+            enemy && enemy.once('animationcomplete-anims/flirtyGirl/attack', () => {
               spawn(Bullet, {
                 name: 'flirtyGirlBullet',
                 texture: 'textures/kiss-bullet',
