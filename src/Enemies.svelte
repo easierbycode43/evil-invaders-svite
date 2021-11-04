@@ -2,10 +2,11 @@
   import Phaser from 'phaser'
   import { onMount } from 'svelte'
   import { ArcadePhysics, getScene, getSpawner } from 'svelte-phaser'
-  import { score, gameStatus, enemiesDefeated, coins } from './store'
+  import { score, gameStatus, enemiesDefeated, sceneRestarting, currentLevel } from './store'
 
   import Enemy from './Enemy.svelte'
   import Bullet from './Bullet.svelte'
+import { clearObjects } from './clearObjects';
 
   const scene = getScene()
   const { spawn } = getSpawner()
@@ -108,8 +109,6 @@
     delay: 2000,
   })
 
-  window.foo = enemyShootTimer
-
   // cleanup timers
   onMount(() => () => {
     moveTimer.destroy()
@@ -140,10 +139,16 @@
 
   // player wins
   $: if (enemies.length === 0) {
-    enemiesDefeated.set(true)
 
-    // launch boss?
-    //  ... 
+    $sceneRestarting = true
+    
+    // enemiesDefeated.set(true)
+
+    // kill sprites and their tweens
+    clearObjects( scene );
+
+    // launch next level
+    scene.scene.restart({ currentLevel: $currentLevel + 1 })
   }
 </script>
 

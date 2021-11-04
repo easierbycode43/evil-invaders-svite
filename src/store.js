@@ -4,7 +4,9 @@ export const score = writable(0)
 export const lives = writable(3)
 export const coins = writable(0)
 
+export const currentLevel = writable( 1 )
 export const enemiesDefeated = writable(false)
+export const sceneRestarting = writable(false)
 
 export const gameStatus = derived(
   [lives, enemiesDefeated],
@@ -24,5 +26,4 @@ export const gameStatus = derived(
 export const reset = () => {
   score.set(0)
   lives.set(3)
-  enemiesDefeated.set(false)
 }

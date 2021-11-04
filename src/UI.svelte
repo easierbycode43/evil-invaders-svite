@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Text, onInputEvent } from 'svelte-phaser'
-  import { score, lives, gameStatus, reset, coins } from './store'
+  import { score, lives, gameStatus, reset, coins, sceneRestarting } from './store'
 
   onInputEvent('pointerdown', () => {
     if ($gameStatus !== 'playing') {
@@ -17,7 +17,7 @@
 <Text x={180} y={575} text="Move with arrow keys, shoot with spacebar" />
 {/if}
 
-{#if $gameStatus !== 'playing'}
+{#if !$sceneRestarting && $gameStatus !== 'playing'}
   <Text
     x={250}
     y={200}

@@ -6,7 +6,7 @@
   import Player from './Player.svelte'
   import Enemies from './Enemies.svelte'
   import UI from './UI.svelte'
-  import { lives } from './store'
+  import { currentLevel, lives, sceneRestarting } from './store'
 
   let game
 
@@ -142,13 +142,33 @@
 
     // set collisions on all edges of world except bottom
     scene.physics.world.setBoundsCollision(true, true, true, false)
+
+    if ( scene.scene.settings.data['currentLevel'] ) {
+      $currentLevel = scene.scene.settings.data['currentLevel']
+
+      let levelText = scene.add.text( 800 / 2, -100, `Level ${$currentLevel}`).setDepth( 30 )
+
+      scene.physics.world.enableBody( levelText )
+
+      scene.time.addEvent({
+        delay: 250,
+        callback: () => levelText.body.setVelocityY( 125 )
+      })
+
+      scene.time.addEvent({
+        delay: 10000,
+        callback: () => levelText.destroy()
+      })
+    }
+
+    
+
+    sceneRestarting.set( false )
   }
 
 
   let logo: Phaser.GameObjects.Sprite
   let upgradeShipText: Phaser.GameObjects.Text
-
-  $: window.text = upgradeShipText
 
   function createMenu(scene: Phaser.Scene) {
     create(scene)
@@ -208,6 +228,7 @@
       <LoadingBar x={400} y={300} {progress} />
     </slot>
     
+    {#if !$sceneRestarting}
     <Spawner>
       <Background />
       <Enemies />
@@ -216,6 +237,7 @@
       {/if}
       <UI />
     </Spawner>
+    {/if}
   </Scene>
 </Game>
 {:else}
