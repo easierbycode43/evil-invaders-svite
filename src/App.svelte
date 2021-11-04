@@ -204,11 +204,11 @@
           scaleY: 1,
           ease: Quint.easeIn
         }, "-=0.9")
-        e.to(upgradeShipText, 1.8, {
+        e.to(upgradeShipText, 1.4, {
           scaleX: 2,
           scaleY: 2,
           ease: Quint.easeIn
-        }, "-=0.9")
+        }, "-=0.7")
       }
     })
   }
