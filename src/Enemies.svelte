@@ -158,9 +158,9 @@ import { clearObjects } from './clearObjects';
     x={100 + enemy.x}
     y={70 + enemy.y + enemyY}
     velocityX={$gameStatus === 'playing' ? enemyVelocityX : 0}
-    onDie={() => {
+    onDie={( points = 100 ) => {
       enemies = enemies.filter((e) => e !== enemy)
-      score.update((prev) => prev + 100)
+      score.update((prev) => prev + points)
     }}
   >
   </Enemy>

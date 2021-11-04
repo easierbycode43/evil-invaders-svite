@@ -63,9 +63,36 @@
   {y}
 >
   <ArcadeCollider
-    with={['enemies', 'enemyBullet']}
+    with={['enemy', 'enemyBullet', 'flirtyGirlBullet']}
     overlapOnly
-    on:collide={() => lives.update((prev) => prev - 1)}
+    on:collide={(e) => {
+
+      if ( e.detail.self.alpha < 1 )  return;
+
+      if ( e.detail.other.name === 'enemy' ) {
+
+        instance.setAlpha( 0.5 )
+
+        let {x: instanceX, y: instanceY} = instance
+        let explosion = scene.add.sprite(instanceX, instanceY, '__DEFAULT')
+        explosion.anims.create({
+          key: 'default',
+          frames: scene.anims.generateFrameNumbers('textures/explosion'),
+          frameRate: 24
+        })
+        explosion.on('animationcomplete-default', () => {
+          explosion.destroy()
+
+          scene.time.addEvent({
+            delay: 1000,
+            callback: () => instance.setAlpha( 1 )
+          })
+        })
+        explosion.play( 'default' )
+      }
+
+      lives.update((prev) => prev - 1)
+    }}
   />
   <ArcadePhysics {velocityX} collideWorldBounds />
 </Sprite>

@@ -9,7 +9,7 @@ import Coin from './Coin.svelte';
   export let x: number
   export let y: number
   export let velocityX: number
-  export let onDie: () => any
+  export let onDie: ( score?: number ) => any
 
   let instance: Phaser.Physics.Arcade.Sprite
 
@@ -94,6 +94,12 @@ import Coin from './Coin.svelte';
       max: 600
     },
     frame: [1]
+  })
+
+  onGameEvent('step', () => {
+      if (instance.y > 600) {
+          onDie( 0 )
+      }
   })
 </script>
 
