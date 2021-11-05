@@ -7,6 +7,7 @@ export const coins = writable(0)
 export const currentLevel = writable( 0 )
 export const enemiesDefeated = writable(false)
 export const sceneRestarting = writable(false)
+export let gamepad = writable({})
 
 export const gameStatus = derived(
   [lives, enemiesDefeated],

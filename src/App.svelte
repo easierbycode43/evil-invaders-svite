@@ -6,7 +6,7 @@
   import Player from './Player.svelte'
   import Enemies from './Enemies.svelte'
   import UI from './UI.svelte'
-  import { currentLevel, lives, sceneRestarting } from './store'
+  import { currentLevel, gamepad, lives, sceneRestarting } from './store'
 
   let game
 
@@ -161,7 +161,9 @@
       })
     }
 
-    
+    scene.input.gamepad.once('down', ( pad ) => {
+        $gamepad = pad;
+    })
 
     sceneRestarting.set( false )
   }

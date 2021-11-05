@@ -9,7 +9,7 @@
     onGameEvent,
   } from 'svelte-phaser'
   import Bullet from './Bullet.svelte'
-  import { lives } from './store'
+  import { gamepad, lives } from './store'
 
   export let x: number
   export let y: number
@@ -29,18 +29,15 @@
 
   // handle key inputs
   onGameEvent('step', () => {
-    if (
-      (!keys.left.isDown && !keys.right.isDown) ||
-      (keys.left.isDown && keys.right.isDown)
-    ) {
-      velocityX = 0
-    } else if (keys.left.isDown) {
+    if ($gamepad.left || keys.left.isDown) {
       velocityX = -X_SPEED
-    } else if (keys.right.isDown) {
+    } else if ($gamepad.right || keys.right.isDown) {
       velocityX = X_SPEED
+    } else {
+      velocityX = 0
     }
 
-    if (Phaser.Input.Keyboard.JustDown(keys.shoot)) {
+    if ($gamepad.A || Phaser.Input.Keyboard.JustDown(keys.shoot)) {
       spawn(Bullet, {
         name: 'playerBullet',
         texture: 'textures/player/bullet',
