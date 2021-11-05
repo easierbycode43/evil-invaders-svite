@@ -129,6 +129,23 @@ import Coin from './Coin.svelte';
           onDie( 0 )
       }
   })
+
+  const getWidth = ( anim: string ) => {
+    switch( anim ) {
+      case 'anims/enemy/fly':
+      case 'anims/enemySilver/fly':
+        return 33;
+        break;
+      case 'anims/flirtyGirl/default':
+        return 26;
+        break;
+      case 'anims/ufo/fly':
+        return 32;
+        break;
+      default:
+        return 26;
+    }
+  }
 </script>
 
 {#if destroyed}
@@ -138,7 +155,7 @@ import Coin from './Coin.svelte';
 {:else}
 <Sprite bind:instance name="enemy" {x} {y} animation={animation}>
   <ArcadePhysics
-    width={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 33 : 26} 
+    width={getWidth( animation )} 
     height={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 24 : 24} 
     offsetX={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 23 : 4} 
     offsetY={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 21 : 15}  
