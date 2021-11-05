@@ -1,7 +1,7 @@
 <script lang="ts">
     import Phaser from 'phaser'
     import { getScene, ArcadeCollider, ArcadePhysics, Sprite, onGameEvent } from 'svelte-phaser'
-import { coins } from './store';
+import { coins, currentLevel } from './store';
 
     const scene = getScene()
 
@@ -11,7 +11,12 @@ import { coins } from './store';
 
     let instance: Phaser.Physics.Arcade.Sprite
     
-    let velocityY: number = 40
+    let velocityY: number = Phaser.Math.Between(-5, -60)
+    let speedMultiplier = 1;
+
+    if ( $currentLevel > 0 ) {
+        speedMultiplier = Math.floor( 1 + (($currentLevel / 10) * 3) )
+    }
 
     onGameEvent('step', () => {
         if (instance.y > 600) {
@@ -25,8 +30,8 @@ import { coins } from './store';
         bounce={1}
         collideWorldBounds
         velocityX={Math.random() < 0.5 ? 15 : -15} 
-        velocityY={Phaser.Math.Between(-5, -60)} 
-        gravityY={100} 
+        velocityY={velocityY} 
+        gravityY={100 * speedMultiplier} 
         useDamping={true} 
         circle={{ radius: 14, offsetX: 0, offsetY: 0 }}
     />

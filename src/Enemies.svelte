@@ -19,6 +19,7 @@ import { clearObjects } from './clearObjects';
   // until it reaches 4x at level 40
   // let speedMultiplier = ($currentLevel / 40) * 3
   if ( $currentLevel > 0 ) {
+    // TODO: update this to $currentLevel / 40 once done testing
     speedMultiplier = 1 + (($currentLevel / 10) * 3)
   }
 
