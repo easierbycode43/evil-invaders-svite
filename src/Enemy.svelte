@@ -132,6 +132,9 @@ import Coin from './Coin.svelte';
 
   const getWidth = ( anim: string ) => {
     switch( anim ) {
+      case 'anims/flyBrain/fly':
+        return 32;
+        break;
       case 'anims/enemy/fly':
       case 'anims/enemySilver/fly':
         return 33;
@@ -146,6 +149,67 @@ import Coin from './Coin.svelte';
         return 26;
     }
   }
+
+  const getHeight = ( anim: string ) => {
+    switch( anim ) {
+      case 'anims/flyBrain/fly':
+        return 32;
+        break;
+      case 'anims/enemy/fly':
+      case 'anims/enemySilver/fly':
+        return 24;
+        break;
+      case 'anims/flirtyGirl/default':
+        return 24;
+        break;
+      case 'anims/ufo/fly':
+        return 24;
+        break;
+      default:
+        return 24;
+    }
+  }
+
+  const getOffsetX = ( anim: string ) => {
+    switch( anim ) {
+      case 'anims/flyBrain/fly':
+        return 0;
+        break;
+      case 'anims/enemy/fly':
+      case 'anims/enemySilver/fly':
+        return 23;
+        break;
+      case 'anims/flirtyGirl/default':
+        return 4;
+        break;
+      case 'anims/ufo/fly':
+        return 0;
+        break;
+      default:
+        return 0;
+    }
+  }
+
+  const getOffsetY = ( anim: string ) => {
+    switch( anim ) {
+      case 'anims/flyBrain/fly':
+        return 0;
+        break;
+      case 'anims/enemy/fly':
+      case 'anims/enemySilver/fly':
+        return 21;
+        break;
+      case 'anims/flirtyGirl/default':
+        return 15;
+        break;
+      case 'anims/ufo/fly':
+        return 0;
+        break;
+      default:
+        return 0;
+    }
+  }
+  
 </script>
 
 {#if destroyed}
@@ -156,9 +220,9 @@ import Coin from './Coin.svelte';
 <Sprite bind:instance name="enemy" {x} {y} animation={animation}>
   <ArcadePhysics
     width={getWidth( animation )} 
-    height={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 24 : 24} 
-    offsetX={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 23 : 4} 
-    offsetY={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 21 : 15}  
+    height={getHeight( animation )}
+    offsetX={getOffsetX( animation )}
+    offsetY={getOffsetY( animation )}  
     {velocityX} 
     bounce={1} 
     collideWorldBounds 
@@ -167,7 +231,7 @@ import Coin from './Coin.svelte';
     () => {
       destroyed = true;
 
-      (animation == 'anims/enemy/fly') && emitter.explode(100, instance.x, instance.y);
+      (['anims/enemy/fly', 'anims/flyBrain/fly'].includes( animation )) && emitter.explode(100, instance.x, instance.y);
       
       (animation == 'anims/enemySilver/fly') && emitterSilver.explode(100, instance.x, instance.y);
 

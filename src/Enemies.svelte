@@ -145,7 +145,10 @@ import { clearObjects } from './clearObjects';
     [ 'anims/flirtyGirl/default', 'anims/flirtyGirl/default' ],
 
     // level 5
-    [ 'anims/enemySilver/fly', 'anims/enemy/fly' ]
+    [ 'anims/enemySilver/fly', 'anims/enemy/fly' ],
+
+    // level 6
+    [ 'anims/flyBrain/fly', 'anims/flirtyGirl/default' ],
   ]
 
 
@@ -164,7 +167,7 @@ import { clearObjects } from './clearObjects';
 
       return {
         x: column * 52,
-        y: row * 32,
+        y: row * 41,
         // we add Date.now() so that all keys are changed between game resets
         // (if you're curious, remove Date.now() and see what happens when you reset the game)
         key: index + Date.now(),

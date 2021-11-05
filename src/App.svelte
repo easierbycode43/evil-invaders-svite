@@ -53,6 +53,10 @@
       frameWidth: 15,
       frameHeight: 29,
     })
+    scene.load.spritesheet('textures/fly-brain', 'assets/fly-brain-32x32.png', {
+      frameWidth: 32,
+      frameHeight: 32,
+    })
     scene.load.spritesheet('textures/kiss-bullet', 'assets/kiss-bullet.png', {
       frameWidth: 25,
       frameHeight: 21,
@@ -95,6 +99,17 @@
       key: 'anims/enemy-silver/explosion',
       frames: scene.anims.generateFrameNumbers('textures/explosion'),
       frameRate: 24,
+    })
+    scene.anims.create({
+      key: 'anims/fly-brain/explosion',
+      frames: scene.anims.generateFrameNumbers('textures/explosion'),
+      frameRate: 24,
+    })
+    scene.anims.create({
+      key: 'anims/flyBrain/fly',
+      frames: scene.anims.generateFrameNumbers('textures/fly-brain'),
+      frameRate: 6,
+      repeat: -1,
     })
     scene.anims.create({
       key: 'anims/bullet/default',
@@ -305,6 +320,7 @@
 {/if}
 <style>
   :global(body) {
+    background-color: black;
     margin: 0;
     position: relative;
     width: 100%;
