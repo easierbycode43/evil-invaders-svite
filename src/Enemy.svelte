@@ -16,6 +16,7 @@ import Coin from './Coin.svelte';
   let destroyed = false
 
   let emitter: any
+  let emitterSilver: any
   let emitterFlirtyGirl: any
   let emitterFlirtyGirl2: any
 
@@ -23,8 +24,35 @@ import Coin from './Coin.svelte';
   let particles = scene.add.particles(
     'textures/enemy/particles'
   )
+  let particlesSilver = scene.add.particles(
+    'textures/enemy-silver/particles'
+  )
 
   emitter = particles.createEmitter({
+    frequency: -1,
+    blendMode   : Phaser.BlendModes.ADD,
+    gravityY: 600,
+    alpha: {
+      start: 1,
+      end: 0,
+      ease: "Cubic.easeIn"
+    },
+    lifespan: 500,
+    angle: {
+      min: -180,
+      max: 180
+    },
+    speed: {
+      min: 0,
+      max: 2400
+    },
+    scale: {
+      min: 0.4,
+      max: 0.6
+    },
+    frame: [...Array(3).keys()]
+  })
+  emitterSilver = particlesSilver.createEmitter({
     frequency: -1,
     blendMode   : Phaser.BlendModes.ADD,
     gravityY: 600,
@@ -109,12 +137,22 @@ import Coin from './Coin.svelte';
   }} />
 {:else}
 <Sprite bind:instance name="enemy" {x} {y} animation={animation}>
-  <ArcadePhysics width={animation == 'anims/enemy/fly' ? 33 : 26} height={animation == 'anims/enemy/fly' ? 24 : 24} offsetX={animation == 'anims/enemy/fly' ? 23 : 4} offsetY={animation == 'anims/enemy/fly' ? 21 : 15}  {velocityX} bounce={1} collideWorldBounds />
+  <ArcadePhysics
+    width={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 33 : 26} 
+    height={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 24 : 24} 
+    offsetX={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 23 : 4} 
+    offsetY={['anims/enemy/fly', 'anims/enemySilver/fly'].includes( animation ) ? 21 : 15}  
+    {velocityX} 
+    bounce={1} 
+    collideWorldBounds 
+  />
   <ArcadeCollider with="playerBullet" overlapOnly on:collide={
     () => {
       destroyed = true;
 
       (animation == 'anims/enemy/fly') && emitter.explode(100, instance.x, instance.y);
+      
+      (animation == 'anims/enemySilver/fly') && emitterSilver.explode(100, instance.x, instance.y);
 
       (animation == 'anims/flirtyGirl/default' || animation == 'anims/flirtyGirl/attack') && emitterFlirtyGirl.explode(1, instance.x, instance.y) && emitterFlirtyGirl2.explode(1, instance.x, instance.y);
     }

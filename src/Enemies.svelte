@@ -125,7 +125,7 @@ import { clearObjects } from './clearObjects';
     [ 'anims/enemy/fly', 'anims/flirtyGirl/default' ],
     
     // level 2
-    [ 'anims/enemy/fly', 'anims/ufo/fly' ],
+    [ 'anims/enemySilver/fly', 'anims/ufo/fly' ],
 
     // level 3
     [ 'anims/ufo/fly', 'anims/ufo/fly' ],

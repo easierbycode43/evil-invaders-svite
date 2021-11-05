@@ -29,7 +29,15 @@
       frameWidth: 79,
       frameHeight: 66,
     })
+    scene.load.spritesheet('textures/enemy-silver', 'assets/invader-silver.png', {
+      frameWidth: 77,
+      frameHeight: 63,
+    })
     scene.load.spritesheet('textures/enemy/particles', 'assets/invader-gold-particles.png', {
+      frameWidth: 3,
+      frameHeight: 3
+    })
+    scene.load.spritesheet('textures/enemy-silver/particles', 'assets/invader-silver-particles.png', {
       frameWidth: 3,
       frameHeight: 3
     })
@@ -73,7 +81,18 @@
       repeat: -1,
     })
     scene.anims.create({
+      key: 'anims/enemySilver/fly',
+      frames: scene.anims.generateFrameNumbers('textures/enemy-silver'),
+      frameRate: 6,
+      repeat: -1,
+    })
+    scene.anims.create({
       key: 'anims/enemy/explosion',
+      frames: scene.anims.generateFrameNumbers('textures/explosion'),
+      frameRate: 24,
+    })
+    scene.anims.create({
+      key: 'anims/enemy-silver/explosion',
       frames: scene.anims.generateFrameNumbers('textures/explosion'),
       frameRate: 24,
     })
