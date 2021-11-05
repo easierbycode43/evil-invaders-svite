@@ -13,6 +13,17 @@ import { clearObjects } from './clearObjects';
 
   let enemies: Array<{ x: number; y: number; key: number, animation: any }> = []
   let enemyVelocityX = 40
+  let speedMultiplier = 1;
+
+  // gradually increase velocityX by level
+  // until it reaches 4x at level 40
+  // let speedMultiplier = ($currentLevel / 40) * 3
+  if ( $currentLevel > 0 ) {
+    speedMultiplier = 1 + (($currentLevel / 10) * 3)
+  }
+
+  enemyVelocityX *= speedMultiplier
+
   let enemyY = 0
 
   // descend every 3 seconds
@@ -109,7 +120,7 @@ import { clearObjects } from './clearObjects';
       }
     },
     loop: true,
-    delay: 2000,
+    delay: Math.floor( 2000 / speedMultiplier )
   })
 
   // cleanup timers
