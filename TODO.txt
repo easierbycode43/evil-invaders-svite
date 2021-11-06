@@ -1,7 +1,15 @@
+
 NOW
 ===
-- on player death, explode emitter
+- Invader boss from AvsI (https://youtu.be/1nzyWpV8pW0?t=991)
 
 
 LATER
 =====
+- mario star colored invader
+- on player death, explode emitter
+
+
+DONE
+====
+- add coin impact FX

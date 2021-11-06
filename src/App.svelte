@@ -25,6 +25,14 @@
       frameWidth: 54,
       frameHeight: 54,
     })
+    scene.load.spritesheet(
+      'textures/coin-impact',
+      'assets/coin-impact.png',
+      {
+          "frameWidth": 20,
+          "frameHeight": 16
+      }
+    )
     scene.load.spritesheet('textures/enemy', 'assets/invader-gold.png', {
       frameWidth: 79,
       frameHeight: 66,
@@ -78,6 +86,12 @@
   }
 
   function create(scene: Phaser.Scene) {
+    scene.anims.create({
+      key: 'anims/coin-impact',
+      frames: scene.anims.generateFrameNumbers('textures/coin-impact'),
+      frameRate: 30,
+      hideOnComplete: true
+    })
     scene.anims.create({
       key: 'anims/enemy/fly',
       frames: scene.anims.generateFrameNumbers('textures/enemy'),
@@ -321,6 +335,7 @@
 <style>
   :global(body) {
     background-color: black;
+    cursor: none;
     margin: 0;
     position: relative;
     width: 100%;

@@ -37,7 +37,19 @@ import { coins, currentLevel } from './store';
     />
     <ArcadeCollider with='player' overlapOnly on:collide={
         () => {
+            let {x: coinX, y: coinY} = instance;
             onCoinCollected()
+            let coinImpact = scene.add.sprite(
+                coinX,
+                coinY,
+                'textures/coin-impact'
+            ).setDepth( 9 )
+
+            coinImpact.displayHeight    = 54;
+            coinImpact.scaleX           = coinImpact.scaleY;
+
+            coinImpact.play( 'anims/coin-impact' )
+            
             coins.update((prev) => prev + Phaser.Math.RND.integerInRange(1, 3))
             scene.coinSound.play()
         }

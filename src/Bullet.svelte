@@ -11,7 +11,7 @@
   export let name: string
   export let target: string
   export let texture: string
-  export let depth = 0
+  export let depth = 10
   export let x: number
   export let y: number
   export let velocityX = 0
