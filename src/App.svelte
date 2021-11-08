@@ -89,7 +89,8 @@
     scene.anims.create({
       key: 'anims/coin-impact',
       frames: scene.anims.generateFrameNumbers('textures/coin-impact'),
-      frameRate: 30,
+      // frameRate: 30,
+      duration: 500,
       hideOnComplete: true
     })
     scene.anims.create({

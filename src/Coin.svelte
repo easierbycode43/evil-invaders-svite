@@ -49,6 +49,15 @@ import { coins, currentLevel } from './store';
             coinImpact.scaleX           = coinImpact.scaleY;
 
             coinImpact.play( 'anims/coin-impact' )
+
+            scene.tweens.add({
+                targets: coinImpact,
+                alpha: 0,
+                y: coinY - 10,
+                duration: 500,
+                ease: 'Power2',
+                onComplete: coinImpact.destroy.bind(coinImpact)
+            })
             
             coins.update((prev) => prev + Phaser.Math.RND.integerInRange(1, 3))
             scene.coinSound.play()
