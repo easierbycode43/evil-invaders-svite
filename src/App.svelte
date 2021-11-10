@@ -1,5 +1,6 @@
 <script lang='ts'>
   import Phaser from 'phaser'
+  import phaserJuice from '../public/phaserJuicePlugin.min.js'
   import { Game, Scene, Sprite, Spawner, Text } from 'svelte-phaser'
   import LoadingBar from './LoadingBar.svelte'
   import Background from './Background.svelte'
@@ -9,10 +10,12 @@
   import { currentLevel, gamepad, lives, sceneRestarting } from './store'
 
   let game
+  let menu
 
   let gameStarted = false
 
   $: window.game = game
+  $: window.menu = menu
 
   $: window.ding = $gamepad
 
@@ -64,6 +67,10 @@
     scene.load.spritesheet('textures/fly-brain', 'assets/fly-brain-32x32.png', {
       frameWidth: 32,
       frameHeight: 32,
+    })
+    scene.load.spritesheet('textures/headphone-invader', 'assets/headphone-invader.png', {
+      frameWidth: 300,
+      frameHeight: 300
     })
     scene.load.spritesheet('textures/kiss-bullet', 'assets/kiss-bullet.png', {
       frameWidth: 25,
@@ -224,6 +231,23 @@
   let upgradeShipText: Phaser.GameObjects.Text
 
   function createMenu(scene: Phaser.Scene) {
+    
+    let {height, width} = scene.scale
+    let headphoneInvader = scene.add.sprite(width / 2, height / 2, 'textures/headphone-invader');
+    headphoneInvader.blendMode = Phaser.BlendModes.ADD;
+    // headphoneInvader.blendMode = Phaser.BlendModes.SCREEN;
+    headphoneInvader.anims.create({
+      key: 'anims/headphone-invader/default',
+      frames: scene.anims.generateFrameNumbers('textures/headphone-invader', {
+        start: 4,
+        end: 8
+      }),
+      frameRate: 6,
+      repeat: -1
+    })
+    headphoneInvader.play( 'anims/headphone-invader/default' )
+    
+    
     // create(scene)
 
     scene.input.on('pointerdown', () => {
@@ -295,11 +319,13 @@
 </Game>
 {:else}
 <Game
+  bind:instance={menu}
   width={800}
   height={600}
   scale={{ mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }}
   render={{ pixelArt: true }}
   physics={{ default: 'arcade' }}
+  plugins={{ scene: [{ key: 'phaserJuice', plugin: phaserJuice, mapping: 'juice' }] }}
 >
   <Scene key="menu" {preload} create={createMenu} let:progress>
     <slot slot="loading">
