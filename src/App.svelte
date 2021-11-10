@@ -233,7 +233,9 @@
   function createMenu(scene: Phaser.Scene) {
     
     let {height, width} = scene.scale
-    let headphoneInvader = scene.add.sprite(width / 2, height / 2, 'textures/headphone-invader');
+    
+    // descends in over 3s
+    let headphoneInvader = scene.add.sprite(width / 2, -300, 'textures/headphone-invader');
     headphoneInvader.blendMode = Phaser.BlendModes.ADD;
     // headphoneInvader.blendMode = Phaser.BlendModes.SCREEN;
     headphoneInvader.anims.create({
@@ -267,6 +269,15 @@
 		scene.time.addEvent({
       delay: 250,
       callback: () => {
+        e.to(headphoneInvader, 3, {
+          y: height / 2,
+          ease: Quint.easeOut,
+        }, "+=0.0")
+        e.addCallback(() => {
+          scene.juice.pulse( headphoneInvader )
+          scene.juice.flipX( headphoneInvader )
+          scene.juice.wobble( headphoneInvader )
+        }, "-=0.1", null, this),
         e.to(scene.copyright, 2, {
           y: 600 - scene.copyright.height - 6,
           ease: Quint.easeOut
